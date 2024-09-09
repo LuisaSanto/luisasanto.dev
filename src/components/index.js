@@ -5,5 +5,6 @@ import About from "./About";
 import Experience from "./Experience";
 import Testimonials from "./Testimonials";
 import Contact from "./Contact";
+import Footer from "./Footer";
 
-export { Hero, Navbar, About, Experience, Testimonials, Contact, EarthCanvas, StarsCanvas };
+export { Hero, Navbar, About, Experience, Testimonials, Contact, EarthCanvas, StarsCanvas, Footer };

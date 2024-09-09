@@ -1,4 +1,4 @@
-import { About, Contact, Hero, Navbar, Experience, Testimonials } from "@/components";
+import { About, Contact, Hero, Navbar, Experience, Testimonials, Footer } from "@/components";
 import dynamic from "next/dynamic";
 
 export default function Home() {
@@ -18,6 +18,7 @@ export default function Home() {
         </div>
         <StarsCanvas />
       </div>
+      <Footer />
     </div>
   );
 }
