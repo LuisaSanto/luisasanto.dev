@@ -46,5 +46,6 @@ This portfolio is automatically deployed on GitHub Pages after each commit using
 Google Analytics has been integrated into the project for tracking visitor behavior and engagement.
 
 ## 🎖️ Credits
-
-This project is based on the [3D Portfolio](https://github.com/himanshu8443/3D-Portfolio) by [Himanshu](https://github.com/himanshu8443). Special thanks for the awesome template and inspiration!
+- Icons used in the project were fetched from [Flaticon](https://www.flaticon.com).
+- The header image was sourced from [Spline.design](https://spline.design).
+- This project is based on the [3D Portfolio](https://github.com/himanshu8443/3D-Portfolio) by [Himanshu](https://github.com/himanshu8443).
