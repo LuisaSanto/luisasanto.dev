@@ -16,30 +16,32 @@ const TestimonialCard = ({
 
   return (
     <motion.div
-      className={`testimonial-card bg-tertiary bg-opacity-70 p-5 rounded-2xl gap-4 transition-all duration-500 ease-in-out relative`}
+      className={`testimonial-card p-[1px] green-pink-gradient rounded-[20px] shadow-card transition-all duration-500 ease-in-out relative`} // Gradient border added
       style={{
         maxWidth: '400px',
-        height: expanded ? 'auto' : '270px',  // Adjusted height to show more lines by default
+        height: expanded ? 'auto' : '270px',
         overflow: 'hidden',
         cursor: 'pointer',
       }}
       onMouseEnter={() => setExpanded(true)}  // Expand on hover
       onMouseLeave={() => setExpanded(false)} // Collapse on hover leave
     >
-      <div className="flex flex-col items-center justify-center">
-        <img
-          src={image}
-          alt={`${name}'s picture`}
-          className="w-16 h-16 rounded-full object-cover mb-4"
-        />
-        <h3 className="text-white font-bold text-[20px] mb-2">{name}</h3>
-        <p className="text-gray-400 text-sm mb-2">{position} at {company}</p>
-      </div>
+      <div className='bg-tertiary rounded-[20px] p-5'>
+        <div className="flex flex-col items-center justify-center">
+          <img
+            src={image}
+            alt={`${name}'s picture`}
+            className="w-16 h-16 rounded-full object-cover mb-4"
+          />
+          <h3 className="text-white font-bold text-[20px] mb-2">{name}</h3>
+          <p className="text-gray-400 text-sm mb-2">{position} at {company}</p>
+        </div>
 
-      <div className={`testimonial-feedback ${expanded ? 'expanded' : 'collapsed'}`}>
-        <p className="text-gray-300 text-[14px] font-semibold mb-2">
-          {feedback}
-        </p>
+        <div className={`testimonial-feedback ${expanded ? 'expanded' : 'collapsed'}`}>
+          <p className="text-gray-300 text-[14px] font-semibold mb-2">
+            {feedback}
+          </p>
+        </div>
       </div>
 
       {/* Styles for smooth transitions */}
@@ -50,10 +52,10 @@ const TestimonialCard = ({
 
         .testimonial-feedback {
           overflow: hidden;
-          max-height: ${expanded ? '1000px' : '4.5em'}; // Adjust initial text height to show 3-4 lines
+          max-height: ${expanded ? '1000px' : '4.5em'};
           transition: max-height 0.6s ease-in-out;
           display: -webkit-box;
-          -webkit-line-clamp: ${expanded ? 'none' : '3'}; // Limits to 3 lines if not expanded
+          -webkit-line-clamp: ${expanded ? 'none' : '3'};
           -webkit-box-orient: vertical;
           text-overflow: ellipsis;
         }
