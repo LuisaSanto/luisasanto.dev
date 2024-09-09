@@ -2,10 +2,13 @@
   "name": "portfolio",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://wwww.luisasanto.dev",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d out",
     "lint": "next lint"
   },
   "dependencies": {
@@ -29,5 +32,8 @@
     "sharp": "^0.33.0",
     "tailwindcss": "3.3.3",
     "three": "^0.155.0"
+  },
+  "devDependencies": {
+    "gh-pages": "^6.1.1"
   }
 }
