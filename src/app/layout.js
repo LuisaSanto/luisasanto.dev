@@ -17,13 +17,13 @@ export default function RootLayout({ children }) {
       <Script
         strategy="lazyOnload"
         async
-        src="https://www.googletagmanager.com/gtag/js?id=G-NRS9PX9R2K"
+        src="https://www.googletagmanager.com/gtag/js?id=G-P80RR69XNM"
       ></Script>
       <Script id="google-analytics">
         {`
         window.dataLayer = window.dataLayer || []; function gtag()
         {dataLayer.push(arguments)}
-        gtag('js', new Date()); gtag('config', 'G-NRS9PX9R2K');
+        gtag('js', new Date()); gtag('config', 'G-P80RR69XNM');
         `}
       </Script>
       <SmoothScroll />
