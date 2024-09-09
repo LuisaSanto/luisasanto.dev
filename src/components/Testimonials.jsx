@@ -4,6 +4,8 @@ import { motion } from "framer-motion";
 import { SectionWrapper } from "./hoc";
 import { testimonials } from "../constants/constants";
 import { fadeIn, textVariant } from "../utils/motion";
+import color_sharp from "../assets/color_sharp.png";
+import Image from "next/image";
 
 const TestimonialCard = ({
   name,
@@ -85,6 +87,7 @@ const Testimonials = () => {
           <p className={'sm:text-[18px] text-[14px] text-secondary uppercase tracking-wider'}>Testimonials</p>
           <h2 className={'text-white font-black md:text-[60px] sm:text-[50px] xs:text-[40px] text-[30px]'}>What People Say.</h2>
         </motion.div>
+        <Image src={color_sharp} alt="color-sharp" className="absolute z-[-1] h-80 -left-60 w-screen -top-20" style={{ filter: "brightness(0.7) sepia(1) saturate(6) hue-rotate(180deg)" }} />
       </div>
 
       <div className="flex flex-wrap gap-10 justify-center mt-10">

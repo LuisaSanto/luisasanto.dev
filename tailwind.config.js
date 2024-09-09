@@ -7,12 +7,12 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        primary: "#050816",
-        secondary: "#aaa6c3",
-        tertiary: "#151030",
-        "black-100": "#100d25",
-        "black-200": "#090325",
-        "white-100": "#f3f3f3",
+        primary: "#050816",    // Dark blue-cyan tone
+        secondary: "#7fb8da",  // Softer cyan tone
+        tertiary: "#151030",   // Deep blue
+        "black-100": "#100d25",  // Dark cyan-blue
+        "black-200": "#090325",  // Even darker cyan-blue
+        "white-100": "#f3f3f3",  // Keeping white as it is        
         red: {
           500: "#f56565",
         },

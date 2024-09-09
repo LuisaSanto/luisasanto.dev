@@ -8,7 +8,7 @@ import { SectionWrapper } from "./hoc";
 import { fadeIn } from "../utils/motion";
 import Image from "next/image";
 import color_sharp from "../assets/color_sharp.png";
-import astronaut from "../assets/header.svg";
+import user from "../assets/user.png"
 
 const MetricsCard = ({ index, title, description, highlight, highlightColor, icon }) => {
   // Helper function to clean the word and match it properly
@@ -90,8 +90,18 @@ const About = () => {
           Mentoring has also played a big role in my career. I’ve had the chance to guide engineers transitioning into new roles while continuing to grow myself. This balance of learning and teaching keeps me motivated to take on new challenges and improve both as an individual and as part of a team.
         </motion.p>
 
-        <Image src={color_sharp} alt="color-sharp" className="absolute z-[-1] h-80 -left-60 w-screen -top-20" />
-        <Image src={astronaut} alt="astronaut" className="absolute z-[-1] h-80 -right-20 animation top-28" />
+        <Image src={color_sharp} alt="color-sharp" className="absolute z-[-1] h-80 -left-60 w-screen -top-20" style={{ filter: "brightness(0.7) sepia(1) saturate(6) hue-rotate(180deg)" }} />
+        <div className='absolute z-[-1] w-screen -top-20'>
+          <Image 
+              loading="lazy" 
+              src={user} 
+              alt="hero" 
+              className="z-[-2] absolute z-[-1] w-screen -top-20 animation"
+              height={700} 
+              style={{ objectFit: 'contain' }} 
+            />
+        </div>
+
       </div>
 
       <div className='mt-20 flex-wrap justify-center gap-10 hidden md:flex'>

@@ -5,8 +5,6 @@ import { SectionWrapper } from "./hoc";
 import { apps } from "../constants/constants";
 import { motion } from "framer-motion";
 import { textVariant } from "../utils/motion";
-import Image from "next/image";
-import color_sharp from "../assets/color_sharp.png";
 import Skills from "./Skills";
 
 const Experience = () => {
@@ -18,7 +16,6 @@ const Experience = () => {
         <h2 className={'text-white font-black md:text-[60px] sm:text-[40px] xs:text-[40px] text-[20px]'}>Projects</h2>
         <h2 className={'text-white font-black md:text-[60px] sm:text-[50px] xs:text-[40px] text-[30px]'}>& Collaborations.</h2>
       </motion.div>
-      <Image src={color_sharp} alt="color-sharp" className="absolute z-[-1] h-80 -left-60 w-screen -top-20" />
       </div>
     <div className='flex relative z-10 flex-col flex-wrap justify-center gap-10'>
       <div className=" flex flex-wrap gap-10 justify-center">
@@ -53,6 +50,7 @@ const Experience = () => {
             muted
             autoPlay="autoplay"
             src="/cards-video.webm"
+            // style={{ filter: "brightness(0.5) sepia(1) saturate(6) hue-rotate(180deg)" }}
           ></video>
         </div>
       </div>

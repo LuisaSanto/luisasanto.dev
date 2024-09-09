@@ -4,10 +4,10 @@ import { motion } from "framer-motion";
 import emailjs from "@emailjs/browser";
 
 import { styles } from "../styles";
-import { EarthCanvas } from "./canvas";
 import { SectionWrapper } from "./hoc";
 import { slideIn } from "../utils/motion";
 import { toast } from "react-hot-toast";
+import Spline from '@splinetool/react-spline/next';
 
 const Contact = () => {
   const formRef = useRef();
@@ -30,7 +30,6 @@ const Contact = () => {
   };
 
   const handleSubmit = (e) => {
-    console.log('Service ID: ', process.env.MAIL_PASS);
     e.preventDefault();
     if (!form.name || !form.email || !form.message) {
       toast.error("Please fill all the fields.");
@@ -129,7 +128,7 @@ const Contact = () => {
 
           <button
             type='submit'
-            className='bg-tertiary py-3 px-8 rounded-xl hover:bg-purple-950 outline-none w-fit text-white font-bold shadow-md shadow-primary'
+            className='bg-tertiary py-3 px-8 rounded-xl hover:bg-cyan-600 outline-none w-fit text-white font-bold shadow-md shadow-primary'
           >
             {loading ? "Sending..." : "Send"}
           </button>
@@ -138,9 +137,9 @@ const Contact = () => {
 
       <motion.div
         variants={slideIn("right", "tween", 0.2, 1)}
-        className='xl:flex-1 xl:h-auto md:h-[550px] h-[350px]'
+        className='flex-1 animation'
       >
-        <EarthCanvas />
+        <Spline scene="https://prod.spline.design/5A80HWwUeICxsXQX/scene.splinecode" loading="lazy"  />
       </motion.div>
     </div>
   );
