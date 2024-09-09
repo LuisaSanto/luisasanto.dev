@@ -23,8 +23,7 @@ const TestimonialCard = ({
         overflow: 'hidden',
         cursor: 'pointer',
       }}
-      onMouseEnter={() => setExpanded(true)}  // Expand on hover
-      onMouseLeave={() => setExpanded(false)} // Collapse on hover leave
+      onClick={() => setExpanded(!expanded)}
     >
       <div className='bg-tertiary rounded-[20px] p-5'>
         <div className="flex flex-col items-center justify-center">
@@ -58,6 +57,16 @@ const TestimonialCard = ({
           -webkit-line-clamp: ${expanded ? 'none' : '3'};
           -webkit-box-orient: vertical;
           text-overflow: ellipsis;
+        }
+
+        .testimonial-feedback.expanded {
+          max-height: 1000px;
+          transition: max-height 0.6s ease-in-out;
+        }
+
+        .testimonial-feedback.collapsed {
+          max-height: 4.5em;
+          transition: max-height 0.6s ease-in-out;
         }
 
         .testimonial-card:hover {
