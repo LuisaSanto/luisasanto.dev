@@ -1,9 +1,38 @@
 'use client'
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { fadeIn } from "../utils/motion";
 
 const Footer = () => {
+  const [time, setTime] = useState("");
+  const [timeZone, setTimeZone] = useState("");
+
+  useEffect(() => {
+    const updateTime = () => {
+      const date = new Date();
+      
+      // Get the local time string
+      const localTime = date.toLocaleTimeString("en-US", {
+        hour12: true,
+        hour: "numeric",
+        minute: "numeric",
+      });
+
+      // Get the local time zone abbreviation
+      const timeZoneName = new Intl.DateTimeFormat('en-US', { timeZoneName: 'short' })
+        .formatToParts(date)
+        .find(part => part.type === 'timeZoneName').value;
+
+      setTime(localTime);
+      setTimeZone(timeZoneName);
+    };
+
+    updateTime(); // Set the initial time
+    const interval = setInterval(updateTime, 1000); // Update time every second
+
+    return () => clearInterval(interval); // Cleanup the interval on component unmount
+  }, []);
+
   return (
     <motion.footer 
       className="w-full bg-primary py-4 flex items-center justify-center"
@@ -23,7 +52,7 @@ const Footer = () => {
         </div>
 
         <div className="text-secondary text-[14px]">
-          Local time: <span className="text-white font-bold">{new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true, timeZone: 'PST' })} UTC-8</span>
+          Local time: <span className="text-white font-bold">{time} {timeZone}</span>
         </div>
 
         <div>
