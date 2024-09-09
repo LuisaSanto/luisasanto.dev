@@ -3,7 +3,6 @@ import { motion } from "framer-motion";
 import { gsap } from "gsap";
 import { useRef, useEffect } from "react";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
-import Spline from '@splinetool/react-spline/next';
 
 const Hero = () => {
   const firstText = useRef(null);
