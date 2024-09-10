@@ -1,5 +1,5 @@
 'use client'
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { SectionWrapper } from "./hoc";
 import { testimonials } from "../constants/constants";
@@ -15,9 +15,87 @@ const TestimonialCard = ({
   position,
   image,
 }) => {
-  const [expanded, setExpanded] = React.useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+  const [expanded, setExpanded] = useState(false); // Expand/collapse state
 
-  return (
+  useEffect(() => {
+    const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+
+    // Detect mobile devices (iPhone, iPad, Android)
+    if (/android/i.test(userAgent) || (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream)) {
+      setIsMobile(true);
+    }
+  }, []);
+
+  const handleCardClick = () => {
+    setExpanded(!expanded); // Toggle the expanded state
+  };
+
+  const cardContent = (
+    <motion.div
+      className={`testimonial-card p-[1px] green-pink-gradient rounded-[20px] shadow-card transition-all duration-500 ease-in-out relative`}
+      style={{
+        maxWidth: '400px',
+        height: expanded ? 'auto' : '270px', // Adjust height based on expanded state
+        overflow: 'hidden',
+        cursor: 'pointer',
+      }}
+      onClick={handleCardClick} // Add click handler
+    >
+      <div className='bg-tertiary rounded-[20px] p-5'>
+        <div className="flex flex-col items-center justify-center">
+          <img
+            src={image}
+            alt={`${name}'s picture`}
+            className="w-16 h-16 rounded-full object-cover mb-4"
+          />
+          <h3 className="text-white font-bold text-[20px] mb-2">{name}</h3>
+          <p className="text-gray-400 text-sm mb-2">{position} at {company}</p>
+        </div>
+
+        <div className={`testimonial-feedback ${expanded ? 'expanded' : 'collapsed'}`}>
+          <p className="text-gray-300 text-[14px] font-semibold mb-2">
+            {feedback}
+          </p>
+        </div>
+      </div>
+
+      {/* Styles for smooth transitions */}
+      <style jsx>{`
+        .testimonial-card {
+          transition: height 0.6s ease-in-out;
+        }
+
+        .testimonial-feedback {
+          overflow: hidden;
+          max-height: ${expanded ? '1000px' : '4.5em'};
+          transition: max-height 0.6s ease-in-out;
+          display: -webkit-box;
+          -webkit-line-clamp: ${expanded ? 'none' : '3'};
+          -webkit-box-orient: vertical;
+          text-overflow: ellipsis;
+        }
+
+        .testimonial-feedback.expanded {
+          max-height: 1000px;
+          transition: max-height 0.6s ease-in-out;
+        }
+
+        .testimonial-feedback.collapsed {
+          max-height: 4.5em;
+          transition: max-height 0.6s ease-in-out;
+        }
+
+        .testimonial-card:hover {
+          transition: height 0.6s ease-in-out;
+        }
+      `}</style>
+    </motion.div>
+  );
+
+  return isMobile ? (
+    cardContent // On mobile, just render the card without Tilt
+  ) : (
     <Tilt
       className="xs:w-[250px] w-full"
       glareEnable={true}
@@ -30,65 +108,7 @@ const TestimonialCard = ({
       tiltEnable={true}
       perspective={1000}
     >
-      <motion.div
-        className={`testimonial-card p-[1px] green-pink-gradient rounded-[20px] shadow-card transition-all duration-500 ease-in-out relative`}
-        style={{
-          maxWidth: '400px',
-          height: expanded ? 'auto' : '270px',
-          overflow: 'hidden',
-          cursor: 'pointer',
-        }}
-        onClick={() => setExpanded(!expanded)}
-      >
-        <div className='bg-tertiary rounded-[20px] p-5'>
-          <div className="flex flex-col items-center justify-center">
-            <img
-              src={image}
-              alt={`${name}'s picture`}
-              className="w-16 h-16 rounded-full object-cover mb-4"
-            />
-            <h3 className="text-white font-bold text-[20px] mb-2">{name}</h3>
-            <p className="text-gray-400 text-sm mb-2">{position} at {company}</p>
-          </div>
-
-          <div className={`testimonial-feedback ${expanded ? 'expanded' : 'collapsed'}`}>
-            <p className="text-gray-300 text-[14px] font-semibold mb-2">
-              {feedback}
-            </p>
-          </div>
-        </div>
-
-        {/* Styles for smooth transitions */}
-        <style jsx>{`
-          .testimonial-card {
-            transition: height 0.6s ease-in-out;
-          }
-
-          .testimonial-feedback {
-            overflow: hidden;
-            max-height: ${expanded ? '1000px' : '4.5em'};
-            transition: max-height 0.6s ease-in-out;
-            display: -webkit-box;
-            -webkit-line-clamp: ${expanded ? 'none' : '3'};
-            -webkit-box-orient: vertical;
-            text-overflow: ellipsis;
-          }
-
-          .testimonial-feedback.expanded {
-            max-height: 1000px;
-            transition: max-height 0.6s ease-in-out;
-          }
-
-          .testimonial-feedback.collapsed {
-            max-height: 4.5em;
-            transition: max-height 0.6s ease-in-out;
-          }
-
-          .testimonial-card:hover {
-            transition: height 0.6s ease-in-out;
-          }
-        `}</style>
-      </motion.div>
+      {cardContent}
     </Tilt>
   );
 };

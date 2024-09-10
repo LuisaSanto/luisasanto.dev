@@ -28,6 +28,7 @@
     "react-hot-toast": "^2.4.1",
     "react-icons": "^4.10.1",
     "react-parallax-tilt": "^1.7.163",
+    "react-responsive": "^10.0.0",
     "react-type-animation": "^3.1.0",
     "react-vertical-timeline-component": "^3.6.0",
     "sharp": "^0.33.0",
