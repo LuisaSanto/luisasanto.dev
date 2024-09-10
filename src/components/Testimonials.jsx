@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { SectionWrapper } from "./hoc";
 import { testimonials } from "../constants/constants";
-import { fadeIn, textVariant } from "../utils/motion";
+import { textVariant } from "../utils/motion";
 import color_sharp from "../assets/color_sharp.png";
 import Image from "next/image";
 import Tilt from "react-parallax-tilt";
