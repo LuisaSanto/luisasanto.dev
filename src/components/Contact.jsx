@@ -22,7 +22,7 @@ const Contact = () => {
   const handleChange = (e) => {
     const { target } = e;
     const { name, value } = target;
-
+    e.preventDefault();
     setForm({
       ...form,
       [name]: value,
