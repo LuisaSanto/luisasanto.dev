@@ -1,5 +1,5 @@
 'use client'
-import React, { useRef, useState } from "react";
+import React, { lazy, useRef, useState, Suspense } from "react";
 import { motion } from "framer-motion";
 import emailjs from "@emailjs/browser";
 
@@ -7,8 +7,11 @@ import { styles } from "../styles";
 import { SectionWrapper } from "./hoc";
 import { slideIn } from "../utils/motion";
 import { toast } from "react-hot-toast";
-import Spline from '@splinetool/react-spline/next';
 
+const Spline = lazy(() => import('@splinetool/react-spline/next'));
+const MemoizedSpline = React.memo(() => (
+  <Spline scene="https://prod.spline.design/5A80HWwUeICxsXQX/scene.splinecode" />
+));
 const Contact = () => {
   const formRef = useRef();
   const [form, setForm] = useState({
@@ -20,9 +23,9 @@ const Contact = () => {
   const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
+    e.preventDefault();
     const { target } = e;
     const { name, value } = target;
-    e.preventDefault();
     setForm({
       ...form,
       [name]: value,
@@ -139,7 +142,13 @@ const Contact = () => {
         variants={slideIn("right", "tween", 0.2, 1)}
         className='flex-1 animation'
       >
-        <Spline scene="https://prod.spline.design/5A80HWwUeICxsXQX/scene.splinecode" loading="lazy"  />
+      <Suspense fallback={<div>Loading...</div>}>
+        <div className="flex-1 flex justify-center items-center h-full">
+          <div style={{ width: '100%', height: '100%', overflow: 'hidden' }}>
+            <MemoizedSpline />
+          </div>
+        </div>
+      </Suspense>
       </motion.div>
     </div>
   );

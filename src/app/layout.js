@@ -12,20 +12,27 @@ export const metadata = {
 };
 
 export default function RootLayout({ children }) {
+  const isProduction = process.env.NODE_ENV === 'production';
+
   return (
     <html lang="en">
-      <Script
-        strategy="lazyOnload"
-        async
-        src="https://www.googletagmanager.com/gtag/js?id=G-P80RR69XNM"
-      ></Script>
-      <Script id="google-analytics">
-        {`
-        window.dataLayer = window.dataLayer || []; function gtag()
-        {dataLayer.push(arguments)}
-        gtag('js', new Date()); gtag('config', 'G-P80RR69XNM');
-        `}
-      </Script>
+      {isProduction && (
+        <>
+          <Script
+            strategy="lazyOnload"
+            async
+            src="https://www.googletagmanager.com/gtag/js?id=G-P80RR69XNM"
+          ></Script>
+          <Script id="google-analytics">
+            {`
+            window.dataLayer = window.dataLayer || []; 
+            function gtag() {dataLayer.push(arguments);}
+            gtag('js', new Date()); 
+            gtag('config', 'G-P80RR69XNM');
+            `}
+          </Script>
+        </>
+      )}
       <SmoothScroll />
       <body className={inter.className}>
         <Toaster />
