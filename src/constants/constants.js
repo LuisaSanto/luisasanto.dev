@@ -146,17 +146,32 @@ const apps = [
 
 const testimonials = [
   {
-    name: "Francisco Pinto",
-    feedback: `I had the privilege of working with Luísa in the Microsoft Teams Dev Support team at Microsoft Portugal, and she truly stands out as a professional.
-    
-    Always willing to help both peers and customers, she has a remarkable ability to simplify complex topics and effectively share her knowledge, whether through one-on-one sessions or team presentations.
-    
-    Her technical expertise shines, particularly in her proactive approach to reviewing source code and suggesting code fixes to the internal Product Group, which made a real difference to our team's work.
-    
-    On top of that, she brings an incredibly positive energy to the team. Her enthusiasm and good vibes help create a supportive and collaborative environment. I highly recommend her—Luísa would be a great asset to any team!`,
-    company: "Microsoft",
-    position: "Software Engineer | Support Escalation Engineer",
-    image: "https://media.licdn.com/dms/image/v2/D4D03AQFLh7zQ55-L2Q/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1701711916503?e=1731542400&v=beta&t=xsVNJKK0q9wpqzRoHTjJraGvpXiIM5byARlc60IqEsI",
+    name: "Rui Gramacho",
+    feedback: `I had the pleasure of working with Luisa when she joined our team as a junior developer straight out of university. From day one, Luisa's passion for technology and her dedication to continuous learning were evident.
+  
+    Outside of her professional responsibilities, Luisa was deeply involved in teaching and coaching young girls on how to code. This inspiring commitment to empowering others was a true reflection of her character and had a positive impact on her work ethic.
+  
+    Luisa's insatiable curiosity and drive to improve were truly remarkable. She was never satisfied with the status quo and constantly sought out opportunities to expand her knowledge and skills. Her proactive approach and eagerness to contribute more to the business made her an invaluable team member.
+  
+    The energy and enthusiasm Luisa brought to the team were contagious. She consistently reached out for ways to become better and more relevant to our projects, always aiming to deliver the best possible results.
+  
+    I am confident that Luisa's dedication and passion will continue to drive her success in any future endeavors. She is a true asset to any team, and I wholeheartedly recommend her.`,
+    company: "Vizrt",
+    position: "Head of Product Development",
+    image: "https://media.licdn.com/dms/image/v2/C4D03AQGXbQrQUR8FRA/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1629507080029?e=1731542400&v=beta&t=65MKV7kkyjv6eaHDXxKurgSt_dik4WLQnlkBBL5kVC4"
+  },
+  {
+    name: "Douglas Ritter",
+    feedback: `I had the pleasure of working with Luisa early in her career, when she joined our team as a Mobile Developer. Despite coming from a backend development background, she enthusiastically embraced the challenge of learning an entirely new tech stack, which spoke volumes about her adaptability and determination.
+  
+    From the very beginning, Luisa impressed me with her strong foundational knowledge, acquired through both her university education and prior experiences. What stood out even more was her genuine desire to learn and contribute to the team's success. Whenever we introduced a new concept, she would dive deep into its core principles, often going beyond the basics by reading books and articles. Her approach not only helped her quickly master the material, but also enabled her to share her knowledge with others, showcasing her leadership potential.
+  
+    Luisa's contributions to the team were impactful on multiple levels. She collaborated closely with her peers, practiced test-driven development, asked insightful questions, and proposed thoughtful improvements to both the codebase and our processes. Her proactive approach and commitment to continuous learning made a significant difference in our team's efficiency and overall performance.
+  
+    It was evident to everyone that Luisa was on a path to great success. She has a rare combination of technical expertise, curiosity, and a collaborative mindset, which makes her an asset in any environment. If you're building a team and need someone who can tackle complex challenges while continuously growing and contributing, I highly recommend Luisa as a key player.`,
+    company: "Springer Nature Group",
+    position: "Lead Developer",
+    image: "https://media.licdn.com/dms/image/v2/C5603AQHJjKrhacoguw/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1516528729178?e=1731542400&v=beta&t=pJWmRJR2fWtzZ6UFcOnBq4As83z6UVz0HCwYHbfgGbQ"
   },
   {
     name: "David Beleza",
@@ -185,6 +200,19 @@ const testimonials = [
     company: "Microsoft",
     position: "Embedded Escalation Engineer (EEE-Dev)",
     image: "https://media.licdn.com/dms/image/v2/D4E03AQGFPg4J-r4-tw/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1718223350321?e=1731542400&v=beta&t=6XgG7dWMN-J1ZAYzmNgLwhuM1E601m636IMG6AU6hN0",
+  },
+  {
+    name: "Francisco Pinto",
+    feedback: `I had the privilege of working with Luísa in the Microsoft Teams Dev Support team at Microsoft Portugal, and she truly stands out as a professional.
+    
+    Always willing to help both peers and customers, she has a remarkable ability to simplify complex topics and effectively share her knowledge, whether through one-on-one sessions or team presentations.
+    
+    Her technical expertise shines, particularly in her proactive approach to reviewing source code and suggesting code fixes to the internal Product Group, which made a real difference to our team's work.
+    
+    On top of that, she brings an incredibly positive energy to the team. Her enthusiasm and good vibes help create a supportive and collaborative environment. I highly recommend her—Luísa would be a great asset to any team!`,
+    company: "Microsoft",
+    position: "Software Engineer | Support Escalation Engineer",
+    image: "https://media.licdn.com/dms/image/v2/D4D03AQFLh7zQ55-L2Q/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1701711916503?e=1731542400&v=beta&t=xsVNJKK0q9wpqzRoHTjJraGvpXiIM5byARlc60IqEsI",
   },
   {
     name: "Vasco Ribeiro",
