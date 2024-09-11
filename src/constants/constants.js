@@ -44,15 +44,15 @@ export const navLinks = [
 
 const metrics = [
   {
-    title: "30+ Bugs Resolved",
-    description: "Addressed over 30 bugs, including 12 critical issues, significantly enhancing system stability.",
+    title: "170+ Bugs Resolved",
+    description: "Addressed over 170 bugs, including 50 critical issues, significantly enhancing system stability.",
     highlight: "critical",
     highlightColor: "text-red-500",
     icon: bug,
   },
   {
-    title: "10+ Features Delivered",
-    description: "Led the development of more than 5 new features, improving both user experience and system reliability.",
+    title: "25+ Features Delivered",
+    description: "Led the development of more than 25 new features, improving both user experience and system reliability.",
     highlight: "experience",
     highlightColor: "text-orange-500",
     icon: feature,
