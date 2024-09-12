@@ -161,6 +161,17 @@ const testimonials = [
     image: "https://media.licdn.com/dms/image/v2/C4D03AQGXbQrQUR8FRA/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1629507080029?e=1731542400&v=beta&t=65MKV7kkyjv6eaHDXxKurgSt_dik4WLQnlkBBL5kVC4"
   },
   {
+    name: "Allen Yee",
+    feedback: `It was a privilege to work with Luisa over the past couple of years on Microsoft Teams. I had the opportunity to interview her, and from the start, it was clear that she possessed both strong technical skills and a genuine passion for software engineering. Her enthusiasm was evident during the interview, and I was delighted when she accepted the offer to join the team.
+  
+    Throughout her time with Teams, Luisa consistently exceeded my expectations. I reviewed many of her pull requests and was impressed by her openness to feedback, her commitment to writing high-quality code, and her dedication to doing things the right way. The Teams codebase is vast and complex, yet Luisa never faltered. She adapted quickly, thrived in the environment, and made significant contributions, which is truly remarkable.
+  
+    I wholeheartedly recommend Luisa as both an exceptional software engineer and a valuable teammate. She would be an asset to any team fortunate enough to work with her.`,
+    company: "Microsoft",
+    position: "Senior Software Engineer",
+    image: "https://media.licdn.com/dms/image/v2/C5603AQEwBMp9jcNk9A/profile-displayphoto-shrink_200_200/profile-displayphoto-shrink_200_200/0/1558496206942?e=1731542400&v=beta&t=vGIrIlv8zIpZnRGC_fRqwtdxewa8Aqn-ANrfvT3rYTI"
+  },
+  {
     name: "Douglas Ritter",
     feedback: `I had the pleasure of working with Luisa early in her career, when she joined our team as a Mobile Developer. Despite coming from a backend development background, she enthusiastically embraced the challenge of learning an entirely new tech stack, which spoke volumes about her adaptability and determination.
   
@@ -213,6 +224,17 @@ const testimonials = [
     company: "Microsoft",
     position: "Software Engineer | Support Escalation Engineer",
     image: "https://media.licdn.com/dms/image/v2/D4D03AQFLh7zQ55-L2Q/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1701711916503?e=1731542400&v=beta&t=xsVNJKK0q9wpqzRoHTjJraGvpXiIM5byARlc60IqEsI",
+  },
+  {
+    name: "Francisco Cunha",
+    feedback: `I had the pleasure of working with Luisa at Talkdesk, where she proved to be a valuable team player. As an iOS developer, Luisa consistently contributed to the success of our product by participating in scrum ceremonies and collaborating seamlessly with our team.
+  
+    One of Luisa’s key strengths is her ability to tackle tasks independently, delivering high-quality work. Whenever she saw an opportunity, she would take initiative on her own. Beyond her own responsibilities, Luisa was always willing to assist other team members and played an instrumental role in helping integrate new iOS developers into the team.
+  
+    Luisa is proactive, reliable, and a true asset to any team. Her dedication and collaborative spirit make her someone I recommend for any team.`,
+    company: "Usercentrics",
+    position: "Software Engineer",
+    image: "https://media.licdn.com/dms/image/v2/D4D03AQHVLpdchIYgvA/profile-displayphoto-shrink_200_200/profile-displayphoto-shrink_200_200/0/1703164872273?e=1731542400&v=beta&t=5x3_2tfuoa-XSvYAFoaYNQBIQxvFUjuEbD48v5pPfGs"
   },
   {
     name: "Vasco Ribeiro",
