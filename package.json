@@ -1,41 +1,34 @@
 {
-  "name": "portfolio",
-  "version": "0.1.0",
+  "name": "luisa-santo-portfolio",
+  "version": "1.0.0",
   "private": true,
-  "homepage": "https://wwww.luisasanto.dev",
+  "engines": {
+    "node": ">=20.19.0"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start",
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d out",
-    "lint": "next lint"
+    "preview": "serve out --listen tcp://127.0.0.1:4173 --no-clipboard",
+    "lint": "eslint . --max-warnings=0",
+    "typecheck": "next typegen && tsc --noEmit",
+    "test": "playwright test",
+    "check": "npm run lint && npm run typecheck && npm run build && npm test",
+    "resume:pdf": "node scripts/export-resume.mjs"
   },
   "dependencies": {
-    "@emailjs/browser": "^3.11.0",
-    "@react-three/drei": "^9.112.0",
-    "@react-three/fiber": "^8.17.7",
-    "@splinetool/react-spline": "^4.0.0",
-    "@studio-freight/lenis": "^1.0.19",
-    "autoprefixer": "10.4.15",
-    "framer-motion": "^10.16.0",
-    "gsap": "^3.12.2",
-    "locomotive-scroll": "^5.0.0-beta.8",
-    "next": "^14.2.9",
-    "postcss": "8.4.28",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-hot-toast": "^2.4.1",
-    "react-icons": "^4.10.1",
-    "react-parallax-tilt": "^1.7.163",
-    "react-responsive": "^10.0.0",
-    "react-type-animation": "^3.1.0",
-    "react-vertical-timeline-component": "^3.6.0",
-    "sharp": "^0.33.0",
-    "tailwindcss": "3.3.3",
-    "three": "^0.168.0"
+    "next": "16.3.5",
+    "react": "19.3.0",
+    "react-dom": "19.3.0"
   },
   "devDependencies": {
-    "gh-pages": "^6.1.1"
+    "@axe-core/playwright": "4.13.0",
+    "@playwright/test": "1.63.0",
+    "@types/node": "20.19.43",
+    "@types/react": "19.3.0",
+    "@types/react-dom": "19.3.0",
+    "eslint": "9.39.5",
+    "eslint-config-next": "16.3.5",
+    "serve": "14.2.6",
+    "typescript": "5.9.3"
   }
 }
