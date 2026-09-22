@@ -3,7 +3,7 @@ import { access } from "node:fs/promises";
 import AxeBuilder from "@axe-core/playwright";
 import { aiCourses, caseStudies, profile, recommendations } from "../src/lib/content";
 
-const routes = ["/", ...caseStudies.map((study) => `/work/${study.slug}/`), "/resume/"];
+const routes = ["/", ...caseStudies.map((study) => `/work/${study.slug}/`), "/resume/", "/resume/one-page/"];
 
 for (const route of routes) {
   test(`${route} is readable, responsive and accessible`, async ({ page }) => {
@@ -79,7 +79,7 @@ test("small screens and enlarged text do not overflow", async ({ page, isMobile 
 
 test("CV download is a real PDF and contact links are verified", async ({ page, request }) => {
   await page.goto("/");
-  await expect(page.getByRole("link", { name: "Download CV (PDF)" })).toHaveAttribute("href", profile.resumePath);
+  await expect(page.getByRole("link", { name: "One-page PDF", exact: true })).toHaveAttribute("href", profile.resumePath);
   const response = await request.get(profile.resumePath);
   expect(response.status()).toBe(200);
   expect(response.headers()["content-type"]).toContain("application/pdf");
@@ -98,6 +98,8 @@ test("content works without JavaScript", async ({ browser }) => {
     await expect(page.getByRole("navigation", { name: "Mobile", exact: true })).toBeVisible();
     await page.getByRole("navigation", { name: "Mobile", exact: true }).getByRole("link", { name: "View CV" }).click();
     await expect(page.getByRole("heading", { name: "Luisa Santo", level: 1 })).toBeVisible();
+    await page.getByRole("navigation", { name: "CV versions" }).getByRole("link", { name: "One-page CV", exact: true }).click();
+    await expect(page.locator(".resume-sheet")).toHaveAttribute("data-variant", "one-page");
   } finally {
     await context.close();
   }
@@ -109,10 +111,14 @@ test("no private sources or third-party trackers load", async ({ page }) => {
     const url = new URL(request.url());
     if (url.protocol.startsWith("http") && url.hostname !== "127.0.0.1") thirdPartyRequests.push(url.hostname);
   });
-  await page.goto("/");
-  const text = await page.locator("main").innerText();
-  expect(text).not.toMatch(/mixpanel\.com|teams\.microsoft\.com|linear\.app|@microsoft\.com|dev\.azure\.com/);
+  for (const route of routes) {
+    await page.goto(route);
+    const text = await page.locator("main").innerText();
+    expect(text).not.toMatch(/mixpanel\.com|teams\.microsoft\.com|linear\.app|@microsoft\.com|dev\.azure\.com|L61|GMAI-\d|Connect\d+\.pdf/);
+    expect(text).not.toMatch(/99% reliability|91% (faster|reduction)|80% (test|coverage)|11s.*1s/);
+  }
   expect(thirdPartyRequests).toEqual([]);
+  await page.goto("/");
   await expect(page.getByLabel("Product scale context")).toContainText("not an individual growth claim");
 });
 
@@ -149,9 +155,11 @@ test("capture the finished layout", async ({ page }, testInfo) => {
   await page.screenshot({ path: testInfo.outputPath("home.png"), fullPage: true, scale: "css" });
   await page.goto("/resume/");
   await page.screenshot({ path: testInfo.outputPath("resume.png"), fullPage: true, scale: "css" });
+  await page.goto("/resume/one-page/");
+  await page.screenshot({ path: testInfo.outputPath("resume-one-page.png"), fullPage: true, scale: "css" });
 });
 
-for (const route of ["/", "/resume/"]) {
+for (const route of ["/", "/resume/", "/resume/one-page/"]) {
   test(`${route} includes the earlier engineering roles and supporting experience`, async ({ page }) => {
     await page.goto(route);
     const peacock = page.locator(route === "/" ? ".timeline-item" : ".resume-job").filter({ has: page.getByRole("heading", { name: /Peacock/ }) });
@@ -190,12 +198,12 @@ test("the illustrative AI brief exposes constraints and acceptance criteria", as
   if (isMobile) await page.locator(".mobile-menu summary").click();
   await page.getByRole("navigation", { name: isMobile ? "Mobile" : "Primary", exact: true }).getByRole("link", { name: "AI workflow" }).click();
   await expect(page).toHaveURL(/#ai-work$/);
-  await page.locator(".prompt-example summary").click();
-  const example = page.locator(".prompt-example");
-  await expect(example.getByText(/Illustrative example/)).toBeVisible();
+  await page.locator("#engineering-brief summary").click();
+  const example = page.locator("#engineering-brief");
+  await expect(example.getByText(/Illustrative brief/)).toBeVisible();
   await expect(example.locator("pre")).toContainText("Do not deploy");
-  await expect(example.locator("pre")).toContainText("keyboard navigation");
-  await expect(example.locator("pre")).toContainText("ask before changing publication scope");
+  await expect(example.locator("pre")).toContainText("Acceptance criteria");
+  await expect(example.locator("pre")).toContainText("out-of-order responses");
 });
 
 test("research references link to the original photograph without republishing images", async ({ page }) => {
@@ -225,4 +233,71 @@ test("the public export preserves its domain and exposes an accurate sitemap", a
   }
   expect(xml.match(/<loc>/g)).toHaveLength(routes.length);
   await access("out/.nojekyll");
+});
+
+test("the work index gives six contributions their own case studies", async ({ page }) => {
+  await page.goto("/");
+  const work = page.locator("#work");
+  await expect(work.locator(".work-card")).toHaveCount(6);
+  for (const [title, slug] of [
+    ["Chat bubbles and theming.", "chat-bubbles"],
+    ["Progressive image loading.", "progressive-image-loading"],
+    ["Feedback and responsive interactions.", "feedback-and-responsiveness"],
+  ]) {
+    await expect(work.getByRole("link", { name: title, exact: true })).toHaveAttribute("href", `/work/${slug}/`);
+  }
+  await expect(page.locator("#more-contributions")).toContainText("Privacy");
+  await expect(page.locator("#more-contributions")).toContainText("onboarding");
+});
+
+test("AI workflow explains prompt structure and instruction-file checks", async ({ page }) => {
+  await page.goto("/#ai-work");
+  const section = page.locator("#ai-work");
+  await expect(section.locator(".ai-workflow-grid article")).toHaveCount(6);
+  await expect(section).toContainText("copilot-instructions.md");
+  await expect(section).toContainText("hallucinations");
+  await expect(section).toContainText("acceptance criteria");
+  await page.locator("#engineering-brief summary").click();
+  await expect(page.locator("#engineering-brief pre")).toContainText("rollback");
+  await expect(page.locator("#engineering-brief pre")).toContainText("Do not invent APIs");
+  await page.locator("#instruction-rules summary").click();
+  await expect(page.locator("#instruction-rules pre")).toContainText("actual command output");
+  await expect(page.locator("#instruction-rules")).toContainText("Illustrative");
+});
+
+test("CV readers can switch between detailed and one-page versions", async ({ page, request }) => {
+  await page.goto("/resume/");
+  const versions = page.getByRole("navigation", { name: "CV versions" });
+  await expect(versions.getByRole("link", { name: "Detailed CV", exact: true })).toHaveAttribute("aria-current", "page");
+  await expect(page.locator(".resume-sheet")).toHaveAttribute("data-variant", "detailed");
+  for (const [label, path] of [
+    ["Detailed PDF (2 pages)", "/luisa-santo-cv-detailed.pdf"],
+    ["One-page PDF", "/luisa-santo-cv.pdf"],
+  ]) {
+    await expect(page.getByRole("link", { name: label, exact: true })).toHaveAttribute("href", path);
+    const response = await request.get(path);
+    expect(response.status()).toBe(200);
+    expect(response.headers()["content-type"]).toContain("application/pdf");
+    expect((await response.body()).subarray(0, 5).toString()).toBe("%PDF-");
+  }
+  await versions.getByRole("link", { name: "One-page CV", exact: true }).click();
+  await expect(page).toHaveURL(/\/resume\/one-page\/$/);
+  await expect(page.locator(".resume-sheet")).toHaveAttribute("data-variant", "one-page");
+  await expect(page.locator(".resume-sheet")).toContainText("chat bubbles");
+  await expect(page.locator(".resume-sheet")).toContainText("instruction files");
+  await expect(page.getByRole("navigation", { name: "CV versions" }).getByRole("link", { name: "One-page CV", exact: true })).toHaveAttribute("aria-current", "page");
+  await page.getByRole("navigation", { name: "CV versions" }).getByRole("link", { name: "Detailed CV", exact: true }).click();
+  await expect(page).toHaveURL(/\/resume\/$/);
+});
+
+test("public numbers include their measurement scope", async ({ page }) => {
+  await page.goto("/");
+  const metrics = page.locator(".quality-metrics");
+  await expect(metrics).toContainText("63");
+  await expect(metrics).toContainText("end-of-2024");
+  await expect(metrics).toContainText("17");
+  await expect(metrics).toContainText("July 2026");
+  await expect(metrics).toContainText("seven");
+  await expect(metrics).toContainText("2024 and 2025");
+  await expect(page.getByLabel("Product scale context")).toContainText("product");
 });

@@ -9,16 +9,18 @@ export const profile = {
   publicPortfolio: "https://www.luisasanto.dev/",
   publicSource: "https://groupme.com/blog/2025-year-in-review",
   resumePath: "/luisa-santo-cv.pdf",
+  detailedResumePath: "/luisa-santo-cv-detailed.pdf",
 } as const;
 
 export type CaseStudy = {
   slug: string;
   number: string;
   product: string;
+  period: string;
   category: string;
   title: string;
   summary: string;
-  visual: "profiles" | "streaming" | "architecture";
+  visual: "profiles" | "bubbles" | "progressive" | "streaming" | "feedback" | "architecture";
   skills: readonly string[];
   challenge: string;
   ownership: readonly string[];
@@ -32,28 +34,79 @@ export const caseStudies = [
     slug: "groupme-profiles",
     number: "01",
     product: "GroupMe",
+    period: "2024 - 2025",
     category: "Product engineering",
     title: "Redesigned GroupMe profiles.",
-    summary: "Profile components, mini-profiles and swipe navigation on iOS.",
+    summary: "Interests, photo galleries, music previews and swipe navigation, from profile components to release.",
     visual: "profiles",
     skills: ["UIKit", "Profile UI", "Navigation"],
     challenge: "New profile content needed to work across the main profile, mini-profiles and existing navigation. Adding the components also meant updating the ways people reached and moved between profiles.",
     ownership: [
       "Owned iOS delivery of the redesigned profile experience, working with product and design through implementation and quality follow-up.",
-      "Integrated richer profile components and mini-profile behavior into the existing application.",
+      "Built interest selection, photo-gallery layouts and music-preview components, and integrated them with profile editing and mini-profiles.",
       "Implemented swipe navigation so people could move between profiles without repeatedly returning to a parent list.",
     ],
     decisions: [
       { title: "Navigation between profiles", body: "Added swipe navigation so people could browse adjacent profiles without returning to the parent list each time." },
       { title: "Profile components", body: "Separated display components and their data responsibilities so changes to one part of a profile did not require rebuilding the whole screen." },
+      { title: "Content and layout", body: "Handled empty and populated profiles, different gallery sizes and music-link validation as part of the same experience." },
     ],
     outcome: "Delivered the iOS contribution to GroupMe's upgraded profiles and subsequent swipe navigation. GroupMe publicly reported more than 1.2 billion profile views across the product in 2025.",
     context: "The view count describes product-wide scale, not incremental growth caused by one engineer or iOS alone.",
   },
   {
-    slug: "ai-experiences",
+    slug: "chat-bubbles",
     number: "02",
     product: "GroupMe",
+    period: "2025",
+    category: "Messaging UI",
+    title: "Chat bubbles and theming.",
+    summary: "Grouping-aware message bubbles, coordinated chat surfaces and light/dark themes.",
+    visual: "bubbles",
+    skills: ["UIKit", "Reusable UI", "Accessibility"],
+    challenge: "A chat redesign reaches beyond a single message cell. Bubble shapes depend on neighboring messages, and the compose bar, navigation and media need to remain consistent across themes and devices.",
+    ownership: [
+      "Implemented the refreshed message-bubble layout, including different shapes for single, first, middle and last messages in a group.",
+      "Built reusable styling for incoming and outgoing messages, with shared light/dark theme colors and layout behavior.",
+      "Updated the compose and navigation surfaces alongside the message cells, and followed through on accessibility, contrast and older-iOS compatibility.",
+    ],
+    decisions: [
+      { title: "Grouping is part of the model", body: "Calculated a message's position in its group so the cell could apply the appropriate corners and spacing rather than guessing from its appearance." },
+      { title: "Shared styling, distinct surfaces", body: "Reused bubble styling and theme tokens while allowing incoming messages, outgoing messages and input controls to keep their different roles." },
+      { title: "Preserve the rest of the conversation", body: "Checked the redesign with text, media and system messages, including enabled and disabled feature states. The change needed to coexist with the existing chat experience." },
+    ],
+    outcome: "Delivered the chat-bubble redesign and coordinated theming across messages, input and navigation, with accessibility and compatibility follow-up.",
+    context: "My contribution was the iOS implementation and rollout work, in collaboration with product and design.",
+  },
+  {
+    slug: "progressive-image-loading",
+    number: "03",
+    product: "GroupMe",
+    period: "2025",
+    category: "AI interaction design",
+    title: "Progressive image loading.",
+    summary: "Intermediate image previews and visible progress while Copilot generates the final result.",
+    visual: "progressive",
+    skills: ["Asynchronous UI", "Cell lifecycle", "Error states"],
+    challenge: "Generating an image takes time. A waiting state needs to show useful progress, transition cleanly to the final image, and recover if the request fails or the conversation scrolls offscreen.",
+    ownership: [
+      "Owned the iOS implementation of progressive loading for Copilot-generated images, from intermediate previews and progress labels to final-image presentation.",
+      "Integrated progress behavior into image and carousel message cells rather than treating it as a separate full-screen flow.",
+      "Handled missing image content, failure states and cell reuse, and followed the feature through rollout.",
+    ],
+    decisions: [
+      { title: "Show progress without pretending it is complete", body: "Displayed intermediate content and progress labels while generation continued, then restored the normal message presentation when the final image arrived." },
+      { title: "Respect cell reuse", body: "Kept loading presentation aligned with the message state so a reused or offscreen cell did not retain another request's shimmer or progress." },
+      { title: "Make failure a visible state", body: "Removed loading indicators when generation failed or produced no image, instead of leaving an indefinite waiting state." },
+    ],
+    outcome: "People could see generation progress and intermediate content before the final image, instead of only waiting for a finished result.",
+    context: "This work improved how the client presented waiting and completion. It did not make the image-generation model itself faster.",
+  },
+  {
+    slug: "ai-experiences",
+    number: "04",
+    product: "GroupMe",
+    period: "2025 - 2026",
     category: "AI product engineering",
     title: "Streaming chat summaries.",
     summary: "Incremental responses, caching and failure handling in the iOS client.",
@@ -63,7 +116,7 @@ export const caseStudies = [
     ownership: [
       "Owned iOS streaming for Copilot-powered chat summaries across incremental rendering, state, caching, failure handling and telemetry.",
       "Built automated tests around summary state and event behavior.",
-      "Delivered progressive loading for AI-generated images so users could see intermediate progress rather than only a final result.",
+      "Coordinated event handling and client behavior with backend and Android engineers.",
     ],
     decisions: [
       { title: "Explicit loading states", body: "Handled loading, partial content, completion and failure separately, with tests around the state changes." },
@@ -74,9 +127,34 @@ export const caseStudies = [
     context: "My contribution was the iOS implementation, including state, caching, UI, error handling and tests.",
   },
   {
+    slug: "feedback-and-responsiveness",
+    number: "05",
+    product: "GroupMe",
+    period: "2025",
+    category: "Interaction & reliability",
+    title: "Feedback and responsive interactions.",
+    summary: "Contextual feedback and optimistic poll updates that recover when a request fails.",
+    visual: "feedback",
+    skills: ["Core Data", "Optimistic updates", "Feedback flows"],
+    challenge: "Small interruptions add up: a vote feels unresponsive while it waits on the network, and reporting a problem is harder once the relevant screen has disappeared.",
+    ownership: [
+      "Implemented in-app feedback and a shake-triggered reporting flow with a confirmation step and screenshot context.",
+      "Changed poll voting to update local state immediately, reconcile with the service on success, and roll back the applied change on failure.",
+      "Fixed navigation, loading and layout issues alongside feature work, following behavior across the UI and data layers.",
+    ],
+    decisions: [
+      { title: "Optimism needs a recovery path", body: "Separated the local vote update from the network request. Preserved the previous state so a failed request could undo the local change rather than leave an incorrect vote on screen." },
+      { title: "Keep feedback intentional", body: "Used a confirmation sheet and a user-controlled setting for shake-triggered feedback, with limits to prevent repeated prompts." },
+      { title: "Measure the feedback flow", body: "Tracked submission, cancellation and failure separately so completing a report was distinguishable from merely opening the form." },
+    ],
+    outcome: "Poll votes appeared without waiting for the network response, with rollback on failure. People could start a contextual problem report from the screen they were using.",
+    context: "These are changes to interaction behavior. I do not attribute a measured network-speed improvement or support-ticket reduction to them.",
+  },
+  {
     slug: "teams-architecture",
-    number: "03",
+    number: "06",
     product: "Microsoft Teams",
+    period: "2023 - 2024",
     category: "Architecture & collaboration",
     title: "Teams post-meeting architecture.",
     summary: "Separating legacy controller logic into Swift components and view models.",
@@ -86,7 +164,7 @@ export const caseStudies = [
     ownership: [
       "Decomposed legacy post-meeting controller responsibilities into Swift components and testable view models.",
       "Worked across design, implementation and validation with partner engineering teams.",
-      "Contributed privacy-sensitive notification and file-handling changes while preserving enterprise scenarios.",
+      "Added tests and supported subsequent meeting-experience changes without requiring a wholesale rewrite.",
     ],
     decisions: [
       { title: "Incremental refactoring", body: "Moved responsibilities into Swift components and view models while retaining existing Objective-C code where appropriate." },
@@ -97,24 +175,31 @@ export const caseStudies = [
   },
 ] as const satisfies readonly CaseStudy[];
 
+export const moreContributions = [
+  { title: "Privacy in Teams", description: "Protected notification previews from unaccepted contacts and changed consumer file/offline behavior without changing enterprise scenarios." },
+  { title: "Automation foundations", description: "Built reusable page objects and UI-test helpers, then maintained scenario tests and contributed build-pipeline fixes as the app and Xcode changed." },
+  { title: "AI onboarding and shared practice", description: "Created AI onboarding animation work and helped engineers, designers and PMs get started with Copilot-assisted code discussions. Shared debugging, review and telemetry practices." },
+  { title: "Developer support and tools", description: "Supported Teams and Skype for Business developer integrations across EMEA. Built escalation and availability-tool interfaces, onboarding resources and shared troubleshooting guidance." },
+] as const;
+
 export const experience = [
   {
     period: "2024 - present",
     team: "GroupMe",
     focus: "Consumer iOS & AI experiences",
-    description: "Profiles, streaming AI experiences, chat UI and the testing and measurement behind them.",
+    description: "Redesigned profiles, chat bubbles, progressive image loading, streaming summaries, contextual feedback and optimistic poll updates. Ownership includes the state, testing and telemetry behind the UI.",
   },
   {
     period: "2022 - 2024",
     team: "Microsoft Teams",
     focus: "iOS architecture & product engineering",
-    description: "Meeting-related experiences, legacy modernization, privacy-sensitive behavior and automation.",
+    description: "Post-meeting architecture, community experiences, notification privacy and consumer file handling. Coordinated changes with partner teams while preserving enterprise behavior.",
   },
   {
     period: "2021 - 2022",
     team: "Teams & Skype for Business",
     focus: "Developer support",
-    description: "Technical ownership of developer scenarios across EMEA, shared knowledge and collaboration with product engineering.",
+    description: "Technical escalation ownership across EMEA, developer-support tools, onboarding and a shared knowledge base. Collaborated with product engineering and support teams across regions.",
   },
   {
     period: "Apr 2020 - Mar 2021",
@@ -149,17 +234,33 @@ export const aiCourses = [
 ] as const;
 
 export const aiWorkflow = [
-  { title: "Make the brief testable", description: "Specify the goal, existing behavior, constraints and acceptance criteria. Call out missing evidence before asking an agent to implement a solution." },
-  { title: "Give agents the right context", description: "Use Copilot CLI and MCP connections to bring code, design and issue context into the task. Keep private sources out of public deliverables." },
-  { title: "Verify the result", description: "Compare changes with the sources and existing patterns. Require build, test and accessibility checks, and keep publication decisions with the human." },
+  { title: "Write the task before the prompt", description: "I describe the user scenario, existing behavior, constraints and acceptance criteria. I separate what must change from what must stay intact, including failure cases and explicit non-goals." },
+  { title: "Give the agent a reading path", description: "I point to the relevant code, designs, tickets and documentation, using MCP where it helps. I ask for existing patterns and dependencies before a proposed implementation, rather than a guess from a file name." },
+  { title: "Keep rules in instruction files", description: "I maintain copilot-instructions.md and repository guidance for architecture, testing, privacy and review. Reusable rules stay separate from the task brief, so important constraints do not depend on repeating a long prompt." },
+  { title: "Require evidence, not confidence", description: "I require source and API checks, explicit assumptions and an honest account of missing evidence. For a bug, I ask for a reproduction before a fix. These checks help catch hallucinations; instructions alone cannot eliminate them." },
+  { title: "Review decisions in small steps", description: "I ask for tradeoffs before non-trivial changes, then break the work into reviewable pieces. I challenge the proposed design, inspect the diff and use review agents for another perspective, not as a substitute for my own judgment." },
+  { title: "Define what finished means", description: "I require actual build and test output, checks for failure and accessibility states, and documentation that matches the result. I keep publication behind human approval and help colleagues adopt the same evidence-first habits." },
 ] as const;
 
-export const portfolioBrief = [
-  "Goal: Create a clear portfolio for an iOS engineer.",
-  "Evidence: Use supplied sources. Separate individual contributions from product-wide outcomes.",
-  "Constraints: Keep the repository private. Do not deploy or publish company-confidential material.",
-  "Acceptance: A static build, keyboard navigation, no mobile overflow and a working CV download.",
-  "Review: Report source gaps, run the checks and ask before changing publication scope.",
+export const engineeringBrief = [
+  "Scenario: A poll vote should appear immediately, even on a slow connection. A failed request must not leave an incorrect vote on screen.",
+  "Read first: Trace the existing view model, persistence and network action. Identify which layer owns the vote state and find the established error-handling pattern.",
+  "Before coding: Explain the current behavior, identify assumptions and propose the smallest change. Do not invent APIs or assume a successful network response.",
+  "Constraints: Reuse existing storage and concurrency rules. Preserve multi-select behavior and accessibility. Keep unrelated refactors out of scope.",
+  "Acceptance criteria: Test success, failure and rollback, repeated taps, multi-select changes, and leaving the screen during a request. Check out-of-order responses rather than assuming they arrive in sequence.",
+  "Handoff: Run the relevant checks and report their actual output. Distinguish verified behavior from anything not tested. Do not deploy without approval.",
+].join("\n\n");
+
+export const instructionExample = [
+  "# Working rules",
+  "- Read the repository guidance and relevant implementation before proposing code.",
+  "- Check APIs against the project's SDK and documentation. State uncertainty instead of filling a gap with a plausible name.",
+  "- Turn assumptions into questions or tests. Do not change requirements silently.",
+  "- Preserve existing behavior outside the task and follow the established architecture.",
+  "- Test failure paths and accessibility, not only the successful interaction.",
+  "- Report actual command output. A proposed test is not a passing test.",
+  "- Keep private code, customer data and internal metrics out of public artifacts.",
+  "- Ask for approval before publishing. Keep the human responsible for the final decision.",
 ].join("\n\n");
 
 export const researchProjects = [
@@ -182,9 +283,9 @@ export const researchProjects = [
 ] as const;
 
 export const quality = [
-  { value: "63", label: "UI tests authored", detail: "Reusable automation for GroupMe's iOS suite." },
-  { value: "17", label: "Accessibility issues addressed", detail: "VoiceOver behavior, headings, states and contrast." },
-  { value: "02", label: "Interns mentored", detail: "Architecture, implementation, review and communicating impact." },
+  { value: "63", label: "UI tests authored", detail: "In GroupMe's end-of-2024 suite, alongside reusable page objects and helpers. A historical authorship count, not a coverage percentage." },
+  { value: "17", label: "Accessibility issues addressed", detail: "Distinct issues in seven merged changes in July 2026: VoiceOver roles, headings, selection, announcements and contrast." },
+  { value: "02", label: "Internship projects mentored", detail: "In 2024 and 2025: implementation, architecture, review and communicating results. Additional coaching extends beyond these two projects." },
 ] as const;
 
 export const recommendations = [
@@ -214,14 +315,31 @@ export const recommendations = [
   },
 ] as const;
 
+export const resumeSummary = "iOS engineer and Member of Technical Staff at Microsoft. Owns consumer features from design through implementation and rollout, including GroupMe messaging and AI experiences. Earlier work spans Teams architecture, the Peacock launch and developer support.";
+
+export const resumeLeadership = "Mentored two internship projects in 2024 and 2025, covering architecture, implementation, code review and communicating results. Also supported engineer onboarding and shared technical practice.";
+
+export const resumeAiPractice = "Writes task briefs and reusable instruction files with source checks, constraints and acceptance tests. Uses Copilot and review agents for implementation, debugging and review, with human oversight. Helps colleagues adopt AI-assisted development.";
+
+export const resumeSkills = "Swift, Objective-C, UIKit, Swift Concurrency, MVVM-C, Core Data, REST APIs, WebSockets, caching, feature flags, telemetry, XCTest, UI automation, VoiceOver, accessibility, Git and GitHub Copilot.";
+
 export const resumeGroups = [
   {
     title: "Microsoft: GroupMe iOS",
     period: "2024 - present",
     bullets: [
-      "Owned iOS delivery of redesigned profiles and swipe navigation, contributing to an experience that GroupMe publicly reported exceeded 1.2 billion product-wide profile views in 2025.",
-      "Implemented Copilot-powered streaming summaries with bounded caching, state and error handling, telemetry and tests; delivered progressive AI image loading.",
-      "Built reusable UI automation, authored 63 UI tests and implemented fixes for 17 accessibility issues.",
+      "Owned redesigned profiles and swipe navigation on iOS; GroupMe reported over 1.2 billion product-wide profile views in 2025.",
+      "Delivered chat bubbles and light/dark theming, progressive AI image loading, and streaming summaries with caching, error handling and telemetry.",
+      "Implemented contextual feedback and optimistic poll updates with rollback. Built UI-test foundations with 63 tests in the end-of-2024 suite; fixed 17 accessibility issues in July 2026.",
+    ],
+    detailedBullets: [
+      "Owned iOS delivery of redesigned profiles: interest selection, photo galleries, music previews, mini-profiles and swipe navigation. GroupMe reported over 1.2 billion product-wide profile views in 2025.",
+      "Implemented grouping-aware chat bubbles and reusable light/dark styling across message cells, the compose bar and navigation, with accessibility and compatibility follow-up.",
+      "Owned progressive loading for Copilot-generated images: intermediate previews, progress states, completion, failure handling and cell-reuse behavior.",
+      "Owned the iOS streaming-summary experience, including incremental rendering, bounded caching and freshness checks, failure states, telemetry and automated tests. Coordinated behavior with backend and Android engineers.",
+      "Implemented in-app feedback and shake-triggered reporting with screenshot context and user confirmation. Added optimistic local poll updates with service reconciliation and rollback on failure.",
+      "Built reusable UI-test infrastructure and authored 63 tests in the historical end-of-2024 suite. Maintained scenario tests and contributed build-pipeline fixes.",
+      "Implemented fixes for 17 distinct accessibility issues across seven merged changes in July 2026, including VoiceOver semantics, selection states, result announcements and dark-mode contrast.",
     ],
   },
   {
@@ -231,12 +349,22 @@ export const resumeGroups = [
       "Refactored legacy post-meeting logic into Swift components and testable view models, coordinating changes with partner teams.",
       "Improved privacy-sensitive notification and file-handling behavior, and added post-meeting UI automation.",
     ],
+    detailedBullets: [
+      "Led incremental modernization of post-meeting logic, separating a legacy controller into Swift components, view models and coordinators while retaining appropriate Objective-C code.",
+      "Coordinated design and implementation with partner engineering teams, added tests, and supported subsequent meeting-experience changes.",
+      "Protected notification previews from unaccepted contacts and adjusted consumer file caching and offline behavior without changing enterprise scenarios. Delivered community UI and post-meeting automation.",
+    ],
   },
   {
     title: "Microsoft: Developer Support",
     period: "2021 - 2022",
     bullets: [
-      "Supported developer integrations across EMEA using Microsoft Graph, webhooks and bots; built onboarding resources and internal coordination tools.",
+      "Led technical escalation support for Teams and Skype for Business developer scenarios across EMEA; built shared tools and onboarding resources.",
+    ],
+    detailedBullets: [
+      "Took technical ownership of Teams and Skype for Business developer-support scenarios across EMEA, collaborating with product engineering and support teams in other regions.",
+      "Built escalation and capacity-planning interfaces, developer-case guidance and a shared knowledge base. Helped engineers scope integrations involving Microsoft Graph, webhooks and bots.",
+      "Supported new engineers through onboarding, troubleshooting sessions and technical coaching.",
     ],
   },
   {
@@ -245,12 +373,20 @@ export const resumeGroups = [
     bullets: [
       "Contributed to the Peacock iPhone and iPad launch; implemented the highlights section and movie/show details UI.",
     ],
+    detailedBullets: [
+      "Contributed to the Peacock iPhone and iPad app launch using Swift and UIKit.",
+      "Implemented the highlights section and movie/show details UI.",
+    ],
   },
   {
     title: "Talkdesk: Software Engineer",
     period: "May 2019 - Apr 2020",
     bullets: [
       "Contributed to a Ruby microservice before moving to iOS work on push notifications and Interface Builder; helped onboard new iOS engineers.",
+    ],
+    detailedBullets: [
+      "Contributed to a Ruby microservice, then moved into iOS development involving push notifications and Interface Builder.",
+      "Helped onboard new iOS engineers and shared context from the transition between backend and mobile work.",
     ],
   },
 ] as const;

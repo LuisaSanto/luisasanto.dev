@@ -37,7 +37,7 @@ export default async function CasePage({ params }: CasePageProps) {
     <article className="case-page container">
       <Link className="back-link" href="/#work"><span aria-hidden="true">&larr;</span> All selected work</Link>
       <header className="case-heading">
-        <p className="eyebrow">{study.product} / {study.category}</p>
+        <p className="eyebrow">{study.product} / {study.category} / {study.period}</p>
         <h1>{study.title}</h1>
         <p className="case-intro">{study.summary}</p>
         <ul className="tags" aria-label="Focus areas">{study.skills.map((skill) => <li key={skill}>{skill}</li>)}</ul>

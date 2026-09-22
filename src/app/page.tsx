@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowIcon, DownloadIcon, ExternalIcon } from "@/components/icons";
 import { CaseVisual } from "@/components/case-visual";
-import { additionalExperience, aiCourses, aiWorkflow, caseStudies, education, experience, portfolioBrief, profile, quality, recommendations, researchProjects } from "@/lib/content";
+import { additionalExperience, aiCourses, aiWorkflow, caseStudies, education, engineeringBrief, experience, instructionExample, moreContributions, profile, quality, recommendations, researchProjects } from "@/lib/content";
 
 export const metadata: Metadata = {
   alternates: { canonical: "/" },
@@ -15,12 +15,12 @@ export default function HomePage() {
         <div className="hero-copy">
           <p className="eyebrow"><span className="status-dot" /> Luisa Santo / iOS engineer</p>
           <h1 id="hero-title">I build iOS apps<br /><em>at Microsoft.</em></h1>
-          <p className="hero-description">I work on GroupMe. Previously, I built iOS features for Microsoft Teams and contributed to the Peacock app launch.</p>
+          <p className="hero-description">I turn product ideas into iOS experiences, from GroupMe&apos;s profiles and chat UI to streaming AI features. Previously: Microsoft Teams and the Peacock app launch.</p>
           <div className="button-row">
             <a className="button button-primary" href="#work">Explore my work <ArrowIcon /></a>
-            <a className="button button-text" href={profile.resumePath} download>Download CV <DownloadIcon /><span className="sr-only"> (PDF)</span></a>
+            <Link className="button button-text" href="/resume/">Read my CV <ArrowIcon /></Link>
           </div>
-          <p className="hero-footnote">Swift, Objective-C and UIKit.</p>
+          <p className="hero-footnote">Swift, Objective-C and UIKit. <a href={profile.resumePath} download>One-page PDF <DownloadIcon /></a></p>
         </div>
         <div className="hero-art" aria-hidden="true">
           <div className="orbit orbit-one" /><div className="orbit orbit-two" />
@@ -42,7 +42,7 @@ export default function HomePage() {
       </div>
 
       <section className="section container" id="work" aria-labelledby="work-title">
-        <div className="section-heading"><div><p className="eyebrow">01 / Selected work</p><h2 id="work-title">What I&apos;ve<br /><em>worked on.</em></h2></div><p>The problem, my contribution, and the implementation choices for each project.</p></div>
+        <div className="section-heading"><div><p className="eyebrow">01 / Selected work</p><h2 id="work-title">What I&apos;ve<br /><em>worked on.</em></h2></div><p>Product UI, asynchronous state, architecture and the details that make an app usable. Each case study separates my contribution from the team&apos;s work.</p></div>
         <div className="work-grid">
           {caseStudies.map((study) => (
             <article className="work-card" key={study.slug}>
@@ -60,11 +60,17 @@ export default function HomePage() {
           <div><span className="scale-number">1.2B+</span><span>profile views across GroupMe in 2025</span></div>
           <p>I owned iOS delivery of redesigned profiles. This is the product&apos;s publicly reported scale, not an individual growth claim. <a href={profile.publicSource}>Read the public source <ExternalIcon /></a></p>
         </aside>
+        <section className="more-contributions" id="more-contributions" aria-labelledby="more-contributions-title">
+          <h3 id="more-contributions-title">Beyond the headline projects</h3>
+          <ul className="contribution-grid">{moreContributions.map((item) => (
+            <li key={item.title}><h4>{item.title}</h4><p>{item.description}</p></li>
+          ))}</ul>
+        </section>
       </section>
 
       <section className="quality-section" aria-labelledby="quality-title">
         <div className="container quality-grid">
-          <div><p className="eyebrow">Alongside feature work</p><h2 id="quality-title">Tests, accessibility<br /><em>and mentoring.</em></h2><p>I build test infrastructure, fix accessibility issues, and help interns plan, implement and explain their work.</p></div>
+          <div><p className="eyebrow">Alongside feature work</p><h2 id="quality-title">Tests, accessibility<br /><em>and mentoring.</em></h2><p>I build reusable test infrastructure, address accessibility issues, and help engineers plan, implement and explain their work. These are dated examples, not lifetime totals.</p></div>
           <div className="quality-metrics">{quality.map((item) => <div className="quality-item" key={item.label}><strong>{item.value}</strong><div><h3>{item.label}</h3><p>{item.detail}</p></div></div>)}</div>
         </div>
       </section>
@@ -105,14 +111,19 @@ export default function HomePage() {
       </section>
 
       <section className="ai-work-section container" id="ai-work" aria-labelledby="ai-work-title">
-        <div className="section-heading"><div><p className="eyebrow">AI-assisted engineering</p><h2 id="ai-work-title">How I direct<br /><em>AI-assisted work.</em></h2></div><p>Clear requirements, useful context and checks on the result. The tools help with the work; they do not decide what is true or ready to publish.</p></div>
+        <div className="section-heading"><div><p className="eyebrow">AI-assisted engineering</p><h2 id="ai-work-title">How I direct<br /><em>AI-assisted work.</em></h2></div><p>I write the brief, define the rules and decide what evidence is needed. Copilot and review agents help with implementation, debugging and review; I remain accountable for the result.</p></div>
         <div className="ai-workflow-grid">{aiWorkflow.map((step) => (
           <article key={step.title}><h3>{step.title}</h3><p>{step.description}</p></article>
         ))}</div>
-        <details className="prompt-example">
-          <summary>A public example brief</summary>
-          <p>Illustrative example based on this portfolio workflow, not a verbatim internal prompt.</p>
-          <pre>{portfolioBrief}</pre>
+        <details className="prompt-example" id="engineering-brief">
+          <summary>Example: a testable engineering prompt</summary>
+          <p>Illustrative brief for a common mobile interaction, not a verbatim company prompt or a claim that every listed test exists in a shipped feature.</p>
+          <pre>{engineeringBrief}</pre>
+        </details>
+        <details className="prompt-example" id="instruction-rules">
+          <summary>Example: reusable instruction-file rules</summary>
+          <p>Illustrative public-safe rules. My private instruction files and company-specific guidance are not published here.</p>
+          <pre>{instructionExample}</pre>
         </details>
       </section>
 
@@ -136,8 +147,8 @@ export default function HomePage() {
         <div className="about-copy">
           <p className="eyebrow">03 / How I work</p>
           <h2 id="about-title">Code, reviews<br /><em>and a bit about me.</em></h2>
-          <p>Much of my work is in existing codebases: separating responsibilities, tracing state changes, and checking what happens when a request fails.</p>
-          <p>I also review code and mentor interns. I help them plan components, work through feedback, and explain their technical decisions.</p>
+          <p>Much of my work is in existing codebases: separating responsibilities, tracing state changes, and checking what happens when a request fails. I work with design, product and partner engineers from the first tradeoff through rollout.</p>
+          <p>I review code, mentor interns and help colleagues get started with AI-assisted development. I care about whether someone can explain a decision and verify the result, not just produce code.</p>
           <p>Outside work, I like fantasy books and retro objects.</p>
           <Link className="text-link" href="/resume/">Read my CV <ArrowIcon /></Link>
         </div>
